@@ -123,6 +123,63 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &166844711
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1284460915891427677, guid: 5fba4c0049a034e4eade0dced0818455, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1284460915891427677, guid: 5fba4c0049a034e4eade0dced0818455, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 65
+      objectReference: {fileID: 0}
+    - target: {fileID: 1284460915891427677, guid: 5fba4c0049a034e4eade0dced0818455, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1284460915891427677, guid: 5fba4c0049a034e4eade0dced0818455, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 1284460915891427677, guid: 5fba4c0049a034e4eade0dced0818455, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1284460915891427677, guid: 5fba4c0049a034e4eade0dced0818455, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1284460915891427677, guid: 5fba4c0049a034e4eade0dced0818455, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1284460915891427677, guid: 5fba4c0049a034e4eade0dced0818455, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1284460915891427677, guid: 5fba4c0049a034e4eade0dced0818455, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1284460915891427677, guid: 5fba4c0049a034e4eade0dced0818455, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1284460915891427677, guid: 5fba4c0049a034e4eade0dced0818455, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7339764475830438412, guid: 5fba4c0049a034e4eade0dced0818455, type: 3}
+      propertyPath: m_Name
+      value: GameFloor_14 x 0 x 13
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5fba4c0049a034e4eade0dced0818455, type: 3}
 --- !u!1 &426216815
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,7 +191,7 @@ GameObject:
   - component: {fileID: 426216816}
   - component: {fileID: 426216817}
   m_Layer: 0
-  m_Name: Floors
+  m_Name: GridBuilder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -167,9 +224,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d660e05b7b6a67a42ae9bfe59b500c51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectPrefab: {fileID: 9205954275925235149, guid: 6a685cc1f886b684ca00e5454cba3479, type: 3}
-  GridMatrix: {x: 5, y: 5, z: 5}
-  Distance: {x: 2, y: 2, z: 2}
+  ObjectPrefab: {fileID: 8205771467232912860, guid: d8ae908807f71f64eb9a59b7d41e025d, type: 3}
+  GridMatrix: {x: 14, y: 0, z: 13}
+  Distance: {x: 10, y: 0, z: 10}
+  gridParentObjectName: GameFloor_
+  selfDestruct: 0
+  timeToSelfDestruct: 5
+  addAlternateColorToGrid: 1
+  mat1: {fileID: 2100000, guid: 5e82973e98cf0af47af650296173b5bd, type: 2}
+  mat2: {fileID: 2100000, guid: 043ba6f506633824db3c3ac95ab64834, type: 2}
+  debugReadOnly_ObjectSize: {x: 0, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
