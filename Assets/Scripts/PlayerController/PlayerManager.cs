@@ -7,16 +7,24 @@ namespace MidTermMadness
 {
     public class PlayerManager : MonoBehaviour
     {
+        [Header(" PLAYER SETTINGS ")] 
+        [SerializeField] float walkSpeed;
+        [SerializeField] float runSpeed;
+        [SerializeField] float rotationSpeed;
+        
         //Managers
         private InputManager pInput;
         
         //Components
-        [SerializeField] private PlayerMovement pMovement;
-        [SerializeField] private PlayerAnimator pAnimator;
+        private PlayerMovement pMovement;
+        private PlayerAnimator pAnimator;
 
         private void Start()
         {
             pInput = InputManager.Instance;
+            pMovement = GetComponentInChildren<PlayerMovement>();
+            pAnimator = GetComponentInChildren<PlayerAnimator>();
+            pMovement.SetMovementValues(walkSpeed,runSpeed,rotationSpeed);
         }
 
         private void FixedUpdate()

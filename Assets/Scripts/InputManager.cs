@@ -10,6 +10,7 @@ namespace MidTermMadness
         public static InputManager Instance;
         
        [HideInInspector] public Vector3 MovementDirection;
+       [HideInInspector] public Vector3 MovementDirectionRaw;
         public KeyCode RunningButton;
 
         private void Awake()
@@ -20,12 +21,17 @@ namespace MidTermMadness
         private void Update()
         {
             CheckMovementInput();
+            CheckRawMovementInput();
         }
 
         private void CheckMovementInput()
         {
-            MovementDirection.x = Input.GetAxisRaw("Horizontal");
-            MovementDirection.z = Input.GetAxisRaw("Vertical");
+            MovementDirection = Vector3.Lerp(MovementDirection, new Vector3(Input.GetAxis("Horizontal"),0,Input.GetAxis("Vertical")), 1);
+        }
+        
+        private void CheckRawMovementInput()
+        {
+            MovementDirectionRaw =  new Vector3(Input.GetAxisRaw("Horizontal"),0,Input.GetAxisRaw("Vertical"));
         }
 
         public bool CheckRunningInput()

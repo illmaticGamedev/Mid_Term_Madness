@@ -16,14 +16,15 @@ namespace MidTermMadness
         [HideInInspector] public bool isRunning = false;
         [HideInInspector] public bool isMoving = false;
 
-        [Header("Movement")] 
-        [SerializeField] private float walkSpeed;
-        [SerializeField] private float runSpeed;
-        private float moveSpeed;
+        // Movement
+         private float walkSpeed;
+         private float runSpeed;
+         private float moveSpeed;
 
-        [Header("Rotation")] [SerializeField] private float rotationSpeed;
-
-        private Rigidbody playerRB;
+        // Rotation
+         private float rotationSpeed;
+         private Quaternion lastTargetRotation = Quaternion.identity;
+         private Rigidbody playerRB;
 
         private void Awake()
         {
@@ -33,20 +34,34 @@ namespace MidTermMadness
         
         public void MoveAndRotatePlayer(Vector3 dirVector)
         {
+            Quaternion targetRotation = Quaternion.identity;
+            
             if (dirVector != Vector3.zero)
             {
                 isMoving = true;
                 dirVector.Normalize();
                 playerRB.velocity = (dirVector * moveSpeed);
-
-                Quaternion targetRotation = Quaternion.LookRotation(dirVector, Vector3.up);
-                playerRB.rotation = Quaternion.RotateTowards(playerRB.rotation, targetRotation, rotationSpeed);
+                
             }
             else
             {
                 isMoving = false;
-                playerRB.velocity = Vector3.zero;
             }
+
+            
+            if (InputManager.Instance.MovementDirectionRaw != Vector3.zero)
+            {
+                targetRotation = Quaternion.LookRotation(dirVector, Vector3.up);
+                playerRB.rotation = Quaternion.RotateTowards(playerRB.rotation, targetRotation, rotationSpeed);
+                lastTargetRotation = targetRotation;
+            }
+            else
+            {
+                playerRB.rotation = Quaternion.RotateTowards(playerRB.rotation, lastTargetRotation, rotationSpeed);
+                playerRB.velocity = Vector3.zero;
+                isMoving = false;
+            }
+
         }
 
         public void TriggerRunning(bool state)
@@ -55,6 +70,13 @@ namespace MidTermMadness
 
             if (!state) moveSpeed = walkSpeed;
             else moveSpeed = runSpeed;
+        }
+
+        public void SetMovementValues(float walk, float run, float rotation)
+        {
+            walkSpeed = walk;
+            runSpeed = run;
+            rotationSpeed = rotation;
         }
     }
 }
