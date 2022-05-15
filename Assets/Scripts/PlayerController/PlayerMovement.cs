@@ -9,52 +9,52 @@ using Vector3 = UnityEngine.Vector3;
 
 namespace MidTermMadness
 {
+    [RequireComponent(typeof(Rigidbody))]
     public class PlayerMovement : MonoBehaviour
     {
-        [SerializeField] private Vector3 dirVector;
-        [SerializeField] private bool isRunning = false;
-        
-        [Header("Movement")]
+       
+        [HideInInspector] public bool isRunning = false;
+        [HideInInspector] public bool isMoving = false;
+
+        [Header("Movement")] 
         [SerializeField] private float walkSpeed;
         [SerializeField] private float runSpeed;
         private float moveSpeed;
 
-        [Header("Rotation")] 
-        [SerializeField] private float rotationSpeed;
-        
+        [Header("Rotation")] [SerializeField] private float rotationSpeed;
+
         private Rigidbody playerRB;
 
         private void Awake()
         {
-            playerRB = GetComponentInChildren<Rigidbody>();
-            moveSpeed = walkSpeed;
+            playerRB = GetComponent<Rigidbody>();
+            TriggerRunning(isRunning);
         }
-
-        private void Update()
+        
+        public void MoveAndRotatePlayer(Vector3 dirVector)
         {
-            dirVector.x = Input.GetAxisRaw("Horizontal");
-            dirVector.z = Input.GetAxisRaw("Vertical");
-        }
+            if (dirVector != Vector3.zero)
+            {
+                isMoving = true;
+                dirVector.Normalize();
+                playerRB.velocity = (dirVector * moveSpeed);
 
-        private void FixedUpdate()
-        {
-            MovePlayer();
-        }
-
-        void MovePlayer()
-        {
-            playerRB.velocity = (dirVector * moveSpeed);
-            // playerRB.rotation =
-           //     Quaternion.RotateTowards(rotation, Quaternion.Euler(dirVector - new Vector3(rotation.x,rotation.y,rotation.z)), rotationSpeed);
+                Quaternion targetRotation = Quaternion.LookRotation(dirVector, Vector3.up);
+                playerRB.rotation = Quaternion.RotateTowards(playerRB.rotation, targetRotation, rotationSpeed);
+            }
+            else
+            {
+                isMoving = false;
+                playerRB.velocity = Vector3.zero;
+            }
         }
 
         public void TriggerRunning(bool state)
         {
             isRunning = state;
 
-            if (state) moveSpeed = walkSpeed;
+            if (!state) moveSpeed = walkSpeed;
             else moveSpeed = runSpeed;
         }
-        
     }
 }
